@@ -2,7 +2,6 @@ from itertools import permutations
 import enchant
 
 
-
 minLen = 3
 permutationList = []
 userLetters = input("Type the letters: ")
@@ -17,6 +16,7 @@ for word in permutationList:
     if d.check(word):
         if word not in outputList:
             outputList.append(word)
+
 
 print("List of possible words:")
 for word in reversed(outputList):
