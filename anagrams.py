@@ -1,10 +1,13 @@
 from itertools import permutations
-import enchant
 
 class anagrams:
     
     def __init__(self, letters):
         self.letters = letters
+        self.dictionary = {}
+        with open("words.txt") as file:
+            for line in file:
+                self.dictionary[line.rstrip()] = 0
 
 
     def possiblePermutations(self):
@@ -17,9 +20,8 @@ class anagrams:
 
     def possibleWords(self):
         output = []
-        d = enchant.Dict("en_US")
         for word in self.possiblePermutations():
-            if d.check(word):
+            if word.upper() in self.dictionary:
                 if word not in output:
                     output.append(word)
         return output
