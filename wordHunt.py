@@ -12,7 +12,7 @@ class wordHunt:
         visitedBoard[row][col] = True
 
         if (len(word) > 2 and (word in self.dictionary)):
-            self.answer.append(word)
+            self.answer[word] = 0
 
         directions = [
             [1, 0],
@@ -40,9 +40,9 @@ class wordHunt:
         self.dictionary = {}
         with open("words.txt") as file:
             for line in file:
-                self.dictionary[line.rstrip()] = 0
+                self.dictionary[line.rstrip().lower()] = 0
 
-        self.answer = []
+        self.answer = {}
         self.board = []
         for i in range(4):
             letters = input(f"Type the letters of row {i + 1}: ")
@@ -63,12 +63,13 @@ class wordHunt:
             for j in range(4):
                 self.recursion(i, j, "", visitedBoard)
 
+        answerList = self.answer.keys()
+        for i in range(len(answerList)):
+            print()
+            print(f"{(i-len(answerList)) * -1}: {sorted(answerList, key=len)[i]}")
 
 
 
 
 wH = wordHunt()
-for word in sorted(wH.answer, key=len):
-    print(word)
-
 print(f" It took {time.time() - wH.start} seconds to find all solutions")
